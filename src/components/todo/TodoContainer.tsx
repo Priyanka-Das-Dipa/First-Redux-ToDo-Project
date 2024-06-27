@@ -3,8 +3,10 @@ import TodoCards from "./TodoCards";
 import { Button } from "../ui/button";
 import AddTodoModal from "./AddTodoModal";
 import TodoDropdown from "./TodoDropdown";
+import { useAppSelector } from "@/redux/hook";
 
 const TodoContainer = () => {
+  const { todos } = useAppSelector((state) => state.todos);
   return (
     <div>
       <div className="flex justify-between mb-10">
@@ -13,11 +15,9 @@ const TodoContainer = () => {
       </div>
       <div className="bg-primary-gradient  w-full h-full p-3 rounded-xl ">
         <div className="bg-white w-full h-full rounded-lg p-5 space-y-2">
-          <TodoCards />
-          <TodoCards />
-          <TodoCards />
-          <TodoCards />
-          <TodoCards />
+          {todos.map((item) => (
+            <TodoCards {...item} />
+          ))}
         </div>
         {/* <div className="bg-white text-2xl p-3 font-bold text-2xl flex justify-center items-center rounded-md">
           <p>There is no task pending</p>
