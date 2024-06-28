@@ -9,11 +9,7 @@ const TodoContainer = () => {
   // const { todos } = useAppSelector((state) => state.todos);
 
   // from server
-  const {
-    data: todos,
-    isLoading,
-    isError,
-  } = useGetTodosQuery(undefined, { pollingInterval: 1000 });
+  const { data: todos, isLoading, isError } = useGetTodosQuery(undefined);
   console.log(todos);
   if (isLoading) {
     return <p>Loading...</p>;
