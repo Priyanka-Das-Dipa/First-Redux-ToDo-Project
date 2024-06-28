@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TodoCards from "./TodoCards";
 import AddTodoModal from "./AddTodoModal";
 import TodoDropdown from "./TodoDropdown";
@@ -8,8 +8,10 @@ const TodoContainer = () => {
   // Local state
   // const { todos } = useAppSelector((state) => state.todos);
 
+  const [priority, setPriority] = useState("");
+
   // from server
-  const { data: todos, isLoading, isError } = useGetTodosQuery(undefined);
+  const { data: todos, isLoading, isError } = useGetTodosQuery(priority);
   console.log(todos);
   if (isLoading) {
     return <p>Loading...</p>;
@@ -19,7 +21,10 @@ const TodoContainer = () => {
     <div>
       <div className="flex justify-between mb-10">
         <AddTodoModal></AddTodoModal>
-        <TodoDropdown></TodoDropdown>
+        <TodoDropdown
+          priority={priority}
+          setPriority={setPriority}
+        ></TodoDropdown>
       </div>
       <div className="bg-primary-gradient  w-full h-full p-3 rounded-xl ">
         <div className="bg-white w-full h-full rounded-lg p-5 space-y-2">
