@@ -1,12 +1,20 @@
 import React from "react";
 import TodoCards from "./TodoCards";
-import { Button } from "../ui/button";
 import AddTodoModal from "./AddTodoModal";
 import TodoDropdown from "./TodoDropdown";
-import { useAppSelector } from "@/redux/hook";
+import { useGetTodosQuery } from "@/redux/api/api";
 
 const TodoContainer = () => {
-  const { todos } = useAppSelector((state) => state.todos);
+  // Local state
+  // const { todos } = useAppSelector((state) => state.todos);
+
+  // from server
+  const { data: todos, isLoading, isError } = useGetTodosQuery(undefined);
+  console.log(todos);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
       <div className="flex justify-between mb-10">
