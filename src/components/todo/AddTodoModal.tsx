@@ -14,27 +14,39 @@ import { addTodo } from "@/redux/features/todoSlice";
 import { useAppDispatch } from "@/redux/hook";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { FormEvent, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
   // ! form local state
   // const dispatch = useAppDispatch();
 
-
   // form server
-  const [addTodo, { data, isLoading, isError, isSuccess}] = useAddTodoMutation();
+  const [addTodo, { data, isLoading, isError, isSuccess }] =
+    useAddTodoMutation();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     // const randomString = Math.random().toString(36).substring(2, 7);
     const taskDetails = {
-      
       title: task,
-      description: description,
-      priority
+      description,
+      isCompleted: false,
+      priority,
     };
+
+    console.log(taskDetails);
     // ! from local state
     // dispatch(addTodo(taskDetails));
 
@@ -74,6 +86,22 @@ const AddTodoModal = () => {
                 id="description"
                 className="col-span-3"
               />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right">Priority</Label>
+              <Select onValueChange={(value) => setPriority(value)}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select a fruit" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Priority</SelectLabel>
+                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="low">Low</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <div className="flex justify-end items-end">
