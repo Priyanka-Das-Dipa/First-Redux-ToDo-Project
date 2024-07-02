@@ -9,7 +9,7 @@ type TTodo = {
 };
 
 type TInitialState = {
-  todos: TTodo;
+  todos: TTodo[];
 };
 const initialState: TInitialState = {
   todos: [],

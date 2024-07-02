@@ -7,18 +7,21 @@ export const baseApi = createApi({
   endpoints: (builder) => ({
     getTodos: builder.query({
       query: (priority) => ({
-        url: `/tasks`,
+        url: "/tasks",
         method: "GET",
         params: { priority },
       }),
       providesTags: ["todo"],
     }),
     addTodo: builder.mutation({
-      query: (data) => ({
-        url: "/task",
-        method: "POST",
-        body: data,
-      }),
+      query: (data) => {
+        console.log("insitebaseuri", data);
+        return {
+          url: "/task",
+          method: "POST",
+          body: data,
+        };
+      },
       invalidatesTags: ["todo"],
     }),
   }),
